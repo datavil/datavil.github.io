@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Datavil — Python Data & Visualization Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/svg+xml" href="datavil.svg">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,9 +16,9 @@
       --ink-faint: #c4c4c4;
       --bg: #f7f5f0;
       --bg-card: #ffffff;
-      --accent: #2d6a4f;
-      --accent-light: #b7e4c7;
-      --accent-warm: #e9c46a;
+      --accent: #0075ff;
+      --accent-light: #b3e8ff;
+      --accent-warm: #00c2ff;
       --rule: #e2dfd8;
       --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
       --shadow-hover: 0 8px 32px rgba(0,0,0,0.10);
@@ -57,25 +58,6 @@
       z-index: 0;
     }
 
-    /* Top-right decorative blobs */
-    .hero-blobs {
-      position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 520px;
-      height: 520px;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.18;
-    }
-    .blob-1 { width: 320px; height: 320px; background: var(--accent); top: 60px; right: 60px; }
-    .blob-2 { width: 220px; height: 220px; background: var(--accent-warm); top: 200px; right: 20px; }
-    .blob-3 { width: 160px; height: 160px; background: var(--accent-light); top: 30px; right: 240px; }
 
     .hero-content {
       position: relative;
@@ -225,7 +207,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+      background: linear-gradient(90deg, #00c2ff, #0075ff);
       opacity: 0;
       transition: opacity 0.25s ease;
     }
@@ -246,7 +228,7 @@
       width: 40px;
       height: 40px;
       border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent-light), #d8f3dc);
+      background: linear-gradient(135deg, #b3e8ff, #e0f5ff);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -364,7 +346,7 @@
       Tools that make<br><em>data beautiful.</em>
     </h1>
     <p class="hero-desc">
-      Datavil is a collection of open-source Python libraries for data science and visualization — crafted for clarity, speed, and elegance.
+      Datavil is a collection of open-source Python libraries for data science and visualization — built for performance, scale, and elegance.
     </p>
     <div class="hero-cta">
       <a href="https://github.com/datavil" class="btn btn-primary">
@@ -390,28 +372,48 @@
     <!-- Cellestial -->
     <a href="https://cellestial.datavil.org" class="library-card reveal">
       <div class="card-top">
-        <div class="card-icon">🎨</div>
+        <div class="card-icon">🫟</div>
         <span class="card-arrow">↗</span>
       </div>
       <div class="card-name">Cellestial</div>
       <div class="card-desc">
-        A Python visualization library built for clarity and composability — elegant charts with minimal code.
+        The Grammar of Graphics for single-cell omics.
       </div>
       <div class="card-tags">
         <span class="tag">visualization</span>
         <span class="tag">charts</span>
         <span class="tag">python</span>
+        <span class="tag">single-cell omics</span>
+        <span class="tag">ggplot</span>
       </div>
     </a>
 
-    <!-- Placeholder card — add your next library here -->
-    <a href="https://github.com/datavil" class="library-card reveal" style="border-style: dashed; box-shadow: none; background: transparent;">
+    <!-- Framex -->
+    <a href="https://framex.datavil.org" class="library-card reveal">
+      <div class="card-top">
+        <div class="card-icon">🦑</div>
+        <span class="card-arrow">↗</span>
+      </div>
+      <div class="card-name">Framex</div>
+      <div class="card-desc">
+        A light-weight dataset fetching library.
+      </div>
+      <div class="card-tags">
+        <span class="tag">datasets</span>
+        <span class="tag">light-weight</span>
+        <span class="tag">python</span>
+      </div>
+    </a>
+
+
+    <!-- More Coming -->
+    <a class="library-card reveal" style="border-style: dashed; box-shadow: none; background: transparent;">
       <div class="card-top">
         <div class="card-icon" style="background: var(--rule); color: var(--ink-faint);">+</div>
       </div>
       <div class="card-name" style="color: var(--ink-faint);">More coming</div>
       <div class="card-desc">
-        New libraries are in the works. Follow the GitHub org to stay updated.
+        New libraries are in the works...
       </div>
       <div class="card-tags">
         <span class="tag">soon</span>
