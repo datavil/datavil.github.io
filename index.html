@@ -218,13 +218,38 @@
     }
 
     .card-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--ink-faint);
-      font-size: 1.1rem;
-      transition: color 0.2s, transform 0.2s;
+      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .card-arrow svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.35s cubic-bezier(.6,.04,.32,1);
     }
     .library-card:hover .card-arrow {
-      color: var(--accent);
-      transform: translate(2px, -2px);
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .library-card:hover .card-arrow svg {
+      transform: translate(120%, -120%);
+    }
+    .card-arrow svg.ghost {
+      position: absolute;
+      transform: translate(-120%, 120%);
+    }
+    .library-card:hover .card-arrow svg.ghost {
+      transform: translate(0, 0);
     }
 
     .card-name {
@@ -347,7 +372,10 @@
       <a href="https://cellestial.datavil.org" class="library-card">
         <div class="card-top">
           <div class="card-icon">🫟</div>
-          <span class="card-arrow">↗</span>
+          <span class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg class="ghost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
         </div>
         <div class="card-name">Cellestial</div>
         <div class="card-desc">
@@ -366,7 +394,10 @@
       <a href="https://framex.datavil.org" class="library-card">
         <div class="card-top">
           <div class="card-icon">🦑</div>
-          <span class="card-arrow">↗</span>
+          <span class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg class="ghost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
         </div>
         <div class="card-name">Framex</div>
         <div class="card-desc">
