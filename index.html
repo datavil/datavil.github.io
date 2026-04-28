@@ -166,7 +166,7 @@
 
     .library-card {
       background: var(--bg-card);
-      border: 1px solid var(--rule);
+      border: 1px solid #a8a39a;
       border-radius: 12px;
       padding: 1.4rem 1.6rem 1.2rem;
       text-decoration: none;
@@ -184,21 +184,10 @@
     .library-card:nth-child(1) { animation-delay: 0.55s; }
     .library-card:nth-child(2) { animation-delay: 0.7s; }
     .library-card:nth-child(3) { animation-delay: 0.85s; }
-    .library-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #00c2ff, #0075ff);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
     .library-card:hover {
       box-shadow: var(--shadow-hover);
       transform: translateY(-3px);
-      border-color: var(--accent-light);
     }
-    .library-card:hover::before { opacity: 1; }
 
     .card-top {
       display: flex;
@@ -210,11 +199,16 @@
       width: 40px;
       height: 40px;
       border-radius: 8px;
-      background: linear-gradient(135deg, #b3e8ff, #e0f5ff);
+      background: linear-gradient(135deg, #3a3a3a, #5a5a5a);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .card-icon svg {
+      width: 26px;
+      height: 26px;
     }
 
     .card-arrow {
@@ -371,7 +365,20 @@
       <!-- Cellestial -->
       <a href="https://cellestial.datavil.org" class="library-card">
         <div class="card-top">
-          <div class="card-icon">🫟</div>
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="6" cy="8" r="1.6" fill="#0075ff"/>
+              <circle cx="9" cy="5" r="1.1" fill="#0075ff" opacity="0.75"/>
+              <circle cx="5" cy="12" r="1.2" fill="#0075ff" opacity="0.65"/>
+              <circle cx="9.5" cy="10.5" r="1" fill="#00c2ff" opacity="0.7"/>
+              <circle cx="16" cy="9" r="1.5" fill="#00c2ff"/>
+              <circle cx="19" cy="6" r="1" fill="#00c2ff" opacity="0.7"/>
+              <circle cx="14.5" cy="13" r="1.1" fill="#00c2ff" opacity="0.6"/>
+              <circle cx="12" cy="18" r="1.6" fill="#0075ff"/>
+              <circle cx="16.5" cy="19" r="1.1" fill="#0075ff" opacity="0.7"/>
+              <circle cx="9" cy="19" r="1" fill="#0075ff" opacity="0.6"/>
+            </svg>
+          </div>
           <span class="card-arrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
           <svg class="ghost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
