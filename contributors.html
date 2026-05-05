@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contributors — Datavil</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="icon" type="image/svg+xml" href="datavil.svg" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --ink: #1a1a1a;
+                --ink-soft: #6b6b6b;
+                --ink-faint: #c4c4c4;
+                --bg: #f7f5f0;
+                --bg-card: #ffffff;
+                --accent: #0075ff;
+                --accent-light: #b3e8ff;
+                --accent-warm: #00c2ff;
+                --rule: #e2dfd8;
+                --shadow:
+                    0 6px 10px -2px rgba(15, 23, 42, 0.18),
+                    0 3px 5px -1px rgba(15, 23, 42, 0.1),
+                    0 1px 2px rgba(15, 23, 42, 0.06);
+                --shadow-hover:
+                    0 18px 28px -8px rgba(15, 23, 42, 0.22),
+                    0 8px 12px -4px rgba(15, 23, 42, 0.12);
+                --card-border: #1f1f1f;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "DM Sans", sans-serif;
+                background: var(--bg);
+                color: var(--ink);
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
+            /* Subtle dot-grid background — same vibe as index */
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background-image: radial-gradient(
+                    circle,
+                    #c4c4c4 2px,
+                    transparent 2px
+                );
+                background-size: 42px 42px;
+                opacity: 0.35;
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            /* ── NAV ── */
+            .nav {
+                position: relative;
+                z-index: 2;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 1.6rem 6vw;
+            }
+            .nav-brand {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                text-decoration: none;
+                color: var(--ink);
+            }
+            .nav-back {
+                font-family: "DM Mono", monospace;
+                font-size: 0.72rem;
+                letter-spacing: 0.04em;
+                color: var(--ink-faint);
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                transition: color 0.2s;
+            }
+            .nav-back:hover {
+                color: var(--ink-soft);
+            }
+            .nav-back svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            /* ── HEADER ── */
+            .page-header {
+                position: relative;
+                z-index: 1;
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 3rem 6vw 2.5rem;
+                text-align: center;
+            }
+            .page-eyebrow {
+                font-family: "DM Mono", monospace;
+                font-size: 0.78rem;
+                font-weight: 500;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 1.2rem;
+            }
+            .page-title {
+                font-family: "DM Serif Display", serif;
+                font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+                line-height: 1.05;
+                color: var(--ink);
+                margin-bottom: 1rem;
+            }
+            .page-title em {
+                font-style: italic;
+                color: var(--accent);
+            }
+            .page-desc {
+                font-size: 1.05rem;
+                font-weight: 300;
+                color: var(--ink-soft);
+                line-height: 1.7;
+                max-width: 560px;
+                margin: 0 auto;
+            }
+
+            /* ── GRID ── */
+            .contributors {
+                position: relative;
+                z-index: 1;
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 2rem 6vw 5rem;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 2rem;
+            }
+
+            /* ── CARD (flip) ── */
+            .contributor {
+                perspective: 1400px;
+                cursor: pointer;
+                aspect-ratio: 3 / 4;
+                opacity: 0;
+                animation: fadeUp 0.7s ease forwards;
+            }
+            .contributor:nth-child(1) {
+                animation-delay: 0.05s;
+            }
+            .contributor:nth-child(2) {
+                animation-delay: 0.15s;
+            }
+            .contributor:nth-child(3) {
+                animation-delay: 0.25s;
+            }
+            .contributor:nth-child(4) {
+                animation-delay: 0.35s;
+            }
+
+            .contributor-inner {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                transition: transform 0.7s cubic-bezier(0.6, 0.04, 0.32, 1);
+                transform-style: preserve-3d;
+            }
+            .contributor.flipped .contributor-inner {
+                transform: rotateY(-180deg);
+            }
+
+            .face {
+                position: absolute;
+                inset: 0;
+                padding: 1.5rem;
+                border: 2px solid var(--card-border);
+                border-radius: 14px;
+                background: var(--bg-card);
+                box-shadow: var(--shadow);
+                display: flex;
+                flex-direction: column;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                transition:
+                    box-shadow 0.25s ease,
+                    transform 0.25s ease;
+            }
+            .contributor:hover .face {
+                box-shadow: var(--shadow-hover);
+            }
+
+            /* FRONT */
+            .face-front {
+                gap: 0.9rem;
+            }
+            .photo {
+                width: 84px;
+                height: 84px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid var(--card-border);
+                background: var(--rule);
+                flex-shrink: 0;
+            }
+            .photo-row {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px dashed var(--card-border);
+            }
+            .name {
+                font-family: "DM Serif Display", serif;
+                font-size: 1.55rem;
+                line-height: 1.1;
+                color: var(--accent);
+                margin-bottom: 0.2rem;
+            }
+            .role {
+                font-family: "DM Mono", monospace;
+                font-size: 0.72rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--ink-soft);
+            }
+            .bio {
+                flex-grow: 1;
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.92rem;
+                line-height: 1.55;
+                color: var(--ink-soft);
+                font-weight: 400;
+                list-style: none;
+                margin: 0.2rem 0 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.45rem;
+            }
+            .bio li {
+                position: relative;
+                padding-left: 0.9rem;
+            }
+            .bio li::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0.62em;
+                width: 5px;
+                height: 1.5px;
+                background: var(--accent);
+                opacity: 0.7;
+            }
+
+            .badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.35rem;
+                padding-top: 0.9rem;
+                padding-bottom: 0.9rem;
+                border-top: 2px dashed var(--card-border);
+                border-bottom: 2px dashed var(--card-border);
+            }
+            .badges span {
+                display: inline-block;
+                padding: 0.2rem 0.6rem;
+                border-radius: 999px;
+                background: var(--accent);
+                color: #ffffff;
+                font-family: "DM Sans", sans-serif;
+                font-size: 0.72rem;
+                font-weight: 600;
+                line-height: 1.2;
+                letter-spacing: 0.01em;
+            }
+
+            .card-footer {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.5rem 1rem;
+                padding-top: 0.9rem;
+                font-family: "JetBrains Mono", "DM Mono", monospace;
+                font-size: 0.78rem;
+                font-weight: 500;
+            }
+            .card-footer a span {
+                word-break: break-all;
+            }
+            .card-footer a {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                color: var(--ink);
+                text-decoration: none;
+                transition: color 0.15s ease;
+            }
+            .card-footer a:hover {
+                color: var(--accent);
+            }
+            .card-footer svg {
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+
+            /* BACK */
+            .face-back {
+                transform: rotateY(-180deg);
+                background:
+                    radial-gradient(
+                        circle at 20% 0%,
+                        rgba(0, 117, 255, 0.08),
+                        transparent 60%
+                    ),
+                    var(--bg-card);
+                gap: 1rem;
+                justify-content: space-between;
+            }
+            .face-back .back-eyebrow {
+                font-family: "DM Mono", monospace;
+                font-size: 0.7rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--accent);
+            }
+            .face-back .back-quote {
+                font-family: "DM Serif Display", serif;
+                font-style: italic;
+                font-size: 1.15rem;
+                line-height: 1.4;
+                color: var(--ink);
+            }
+            .face-back .back-stats {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.7rem;
+            }
+            .stat {
+                border: 1px solid var(--rule);
+                border-radius: 8px;
+                padding: 0.6rem 0.7rem;
+            }
+            .stat-label {
+                font-family: "DM Mono", monospace;
+                font-size: 0.62rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: var(--ink-faint);
+                margin-bottom: 0.2rem;
+            }
+            .stat-value {
+                font-family: "JetBrains Mono", "DM Mono", monospace;
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: var(--ink);
+            }
+            .back-hint {
+                font-family: "DM Mono", monospace;
+                font-size: 0.68rem;
+                color: var(--ink-faint);
+                letter-spacing: 0.1em;
+                text-align: center;
+            }
+
+            /* ── FOOTER ── */
+            footer {
+                position: relative;
+                z-index: 1;
+                border-top: 1px solid var(--rule);
+                padding: 2rem 6vw;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                background: var(--bg);
+            }
+            .footer-links {
+                display: flex;
+                gap: 1.5rem;
+            }
+            .footer-links a {
+                font-size: 0.82rem;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-family: "DM Mono", monospace;
+                transition: color 0.2s;
+            }
+            .footer-links a:hover {
+                color: var(--accent);
+            }
+            .footer-copy {
+                font-size: 0.78rem;
+                color: var(--ink-faint);
+                font-family: "DM Mono", monospace;
+            }
+
+            /* ── ANIMATIONS ── */
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(16px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* ── PLACEHOLDER ── */
+            .contributor.placeholder .face {
+                border-style: dashed;
+                background: transparent;
+                box-shadow: none;
+            }
+            .contributor.placeholder .face-front {
+                opacity: 0.45;
+                filter: saturate(0.4);
+                transition:
+                    opacity 0.25s ease,
+                    filter 0.25s ease;
+            }
+            .contributor.placeholder:hover .face-front {
+                opacity: 0.7;
+                filter: saturate(0.7);
+            }
+            .contributor.placeholder .photo {
+                filter: grayscale(1);
+            }
+            .contributor.placeholder .name {
+                color: var(--ink-faint);
+            }
+            .contributor.placeholder .badges span {
+                background: transparent;
+                color: var(--ink-faint);
+                border: 1px dashed var(--ink-faint);
+                font-weight: 500;
+            }
+
+            /* ── RESPONSIVE ── */
+            @media (max-width: 760px) {
+                .contributors {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+                .contributor {
+                    aspect-ratio: 4 / 5;
+                }
+            }
+            @media (max-width: 600px) {
+                footer {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ── NAV ── -->
+        <nav class="nav">
+            <a class="nav-back" href="index.html">
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                </svg>
+                back to home
+            </a>
+        </nav>
+
+        <!-- ── HEADER ── -->
+        <header class="page-header">
+            <h1 class="page-title">The <em>Datavil</em> Team</h1>
+        </header>
+
+        <!-- ── GRID ── -->
+        <section class="contributors">
+            <!-- CONTRIBUTOR 1 — reference: Zaf4 -->
+            <article
+                class="contributor"
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+            >
+                <div class="contributor-inner">
+                    <div class="face face-front">
+                        <div class="photo-row">
+                            <img
+                                class="photo"
+                                src="https://github.com/Zaf4.png"
+                                alt="Portrait of Zafer"
+                            />
+                            <div>
+                                <div class="name">Zafer Kosar</div>
+                                <div class="role">Founder · Maintainer</div>
+                            </div>
+                        </div>
+                        <ul class="bio">
+                            <li>Author of Cellestial and Framex.</li>
+                            <li>Computational Molecular Biologist.</li>
+                            <li>
+                                Single-cell &amp; spatial omics and
+                                visualization enthusiast.
+                            </li>
+                        </ul>
+                        <div class="badges">
+                            <span>data visualization</span>
+                            <span>python</span>
+                            <span>single-cell omics</span>
+                            <span>spatial omics</span>
+                            <span>ggplot</span>
+                            <span>computational biology</span>
+                        </div>
+                        <div class="card-footer">
+                            <a
+                                href="https://github.com/Zaf4"
+                                target="_blank"
+                                rel="noopener"
+                                aria-label="GitHub"
+                            >
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+                                    />
+                                </svg>
+                                <span>Zaf4</span>
+                            </a>
+                            <a
+                                href="mailto:zafermolbio@gmail.com"
+                                aria-label="Email"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        x="2.5"
+                                        y="4"
+                                        width="19"
+                                        height="16"
+                                        rx="2"
+                                    />
+                                    <path d="M3 6.5l9 6 9-6" />
+                                </svg>
+                                <span>zafermolbio@gmail.com</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="face face-back">
+                        <div>
+                            <div class="back-eyebrow">// about</div>
+                            <p class="back-quote">"..."</p>
+                        </div>
+                        <div class="back-stats">
+                            <div class="stat">
+                                <div class="stat-label">Focus</div>
+                                <div class="stat-value">single-cell omics</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Lang</div>
+                                <div class="stat-value">Python</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Libraries</div>
+                                <div class="stat-value">Cellestial, Framex</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Since</div>
+                                <div class="stat-value">2024</div>
+                            </div>
+                        </div>
+                        <div class="back-hint">click to flip back</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CONTRIBUTOR 2 — placeholder -->
+            <article
+                class="contributor placeholder"
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+                aria-label="Placeholder contributor"
+            >
+                <div class="contributor-inner">
+                    <div class="face face-front">
+                        <div class="photo-row">
+                            <img
+                                class="photo"
+                                src="https://avatars.githubusercontent.com/u/0?v=4"
+                                alt="Portrait placeholder"
+                            />
+                            <div>
+                                <div class="name">Placeholder</div>
+                                <div class="role">Core Contributor</div>
+                            </div>
+                        </div>
+                        <ul class="bio">
+                            <li>...</li>
+                            <li>...</li>
+                            <li>...</li>
+                        </ul>
+                        <div class="badges">
+                            <span>data science</span>
+                            <span>python</span>
+                        </div>
+                        <div class="card-footer">
+                            <a
+                                href="https://github.com/"
+                                target="_blank"
+                                rel="noopener"
+                                aria-label="GitHub"
+                            >
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"
+                                    />
+                                </svg>
+                                <span>placeholder</span>
+                            </a>
+                            <a
+                                href="mailto:placeholder@example.com"
+                                aria-label="Email"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        x="2.5"
+                                        y="4"
+                                        width="19"
+                                        height="16"
+                                        rx="2"
+                                    />
+                                    <path d="M3 6.5l9 6 9-6" />
+                                </svg>
+                                <span>placeholder@example.com</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="face face-back">
+                        <div>
+                            <div class="back-eyebrow">// about</div>
+                            <p class="back-quote">
+                                "Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit."
+                            </p>
+                        </div>
+                        <div class="back-stats">
+                            <div class="stat">
+                                <div class="stat-label">Focus</div>
+                                <div class="stat-value">Data</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Lang</div>
+                                <div class="stat-value">Python · Rust</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Libraries</div>
+                                <div class="stat-value">Framex</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Since</div>
+                                <div class="stat-value">2025</div>
+                            </div>
+                        </div>
+                        <div class="back-hint">click to flip back</div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- ── FOOTER ── -->
+        <footer>
+            <p class="footer-copy">
+                © 2026 Datavil. Open source, Apache 2.0 licensed.
+            </p>
+            <div class="footer-links">
+                <a href="contributors.html">Contributors</a>
+                <a
+                    href="https://github.com/datavil"
+                    target="_blank"
+                    rel="noopener"
+                    >GitHub</a
+                >
+            </div>
+        </footer>
+
+        <script>
+            // Click + keyboard to flip cards
+            document.querySelectorAll(".contributor").forEach((card) => {
+                const toggle = (e) => {
+                    // Don't flip if a link inside the card was clicked
+                    if (e.target.closest("a")) return;
+                    card.classList.toggle("flipped");
+                    card.setAttribute(
+                        "aria-pressed",
+                        card.classList.contains("flipped"),
+                    );
+                };
+                card.addEventListener("click", toggle);
+                card.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggle(e);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
